@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guiznotes - Вход</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body.body-main-page {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensures the body takes at least the full viewport height */
+        }
+
+        main {
+            flex: 1 0 auto; /* Main content stretches to fill available space */
+        }
+
+        footer {
+            flex-shrink: 0; /* Footer does not shrink */
+            background-color: #0d0d0d;
+            color: #cccccc;
+            padding: 20px 0;
+            border-top: 2px solid #27ae60;
+        }
+
+        .navbar-dark {
+            background-color: #0b110b !important;
+        }
+
+        .navbar-dark .navbar-brand {
+            color: #2ecc71;
+            transition: color 0.3s;
+        }
+
+        .navbar-dark .navbar-brand:hover {
+            color: #27ae60;
+        }
+
+        .navbar-dark .nav-link {
+            color: #27ae60;
+            transition: color 0.3s;
+        }
+
+        .navbar-dark .nav-link.active,
+        .navbar-dark .nav-link:hover {
+            color: #2ecc71;
+        }
+
+        .btn-custom {
+            background-color: #27ae60;
+            color: #ffffff;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            border: none;
+        }
+
+        .btn-custom:hover {
+            background-color: #2ecc71;
+            color: #ffffff;
+        }
+
+        .card {
+            background-color: #121212;
+            border: none;
+            color: #ffffff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(46, 204, 113, 0.7);
+        }
+
+        .card-title {
+            color: #2ecc71;
+        }
+
+        a {
+            color: #27ae60;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #2ecc71;
+        }
+
+        .form-control {
+            background-color: #2a2a2a;
+            border: 1px solid #27ae60;
+            color: #ffffff;
+        }
+
+        .form-control:focus {
+            background-color: #2a2a2a;
+            border-color: #2ecc71;
+            box-shadow: 0 0 5px rgba(46, 204, 113, 0.5);
+            color: #ffffff;
+        }
+
+        .form-label {
+            color: #cccccc;
+        }
+
+        .login-container {
+            padding: 50px 0;
+        }
+    </style>
+</head>
+<body class="body-main-page">
+    {% include 'includes/header.html' %}
+    <main>
+        <div class="container login-container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Вход</h5>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Имя пользователя:</label>
+                                    <input type="text" class="form-control" id="username" placeholder="Введите имя пользователя">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Пароль:</label>
+                                    <input type="password" class="form-control" id="password" placeholder="Введите пароль">
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-custom">Войти</button>
+                                </div>
+                            </form>
+                            <p class="mt-3 text-center">
+                                Нет аккаунта? <a href="#">Создать аккаунт</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    {% include 'includes/footer.html' %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

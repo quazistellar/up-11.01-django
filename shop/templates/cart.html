@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Guiznotes - главная</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class=body-main-page>
+
+<style>
+
+  html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body.body-main-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Минимальная высота страницы — вся высота окна */
+}
+
+main {
+  flex: 1 0 auto; /* Основной контент растягивается, чтобы занять доступное пространство */
+}
+
+footer {
+  flex-shrink: 0; /* Футер не сжимается */
+  background-color: #0d0d0d;
+  color: #cccccc;
+  padding: 20px 0;
+  border-top: 2px solid #27ae60;
+}
+
+      html body.body-main-page {
+      background-color: #1e1e1e;
+      color: #ffffff;
+    }
+
+    .navbar-dark {
+      background-color: #0b110b !important;
+    }
+
+    .navbar-dark .navbar-brand {
+      color: #2ecc71;
+      transition: color 0.3s;
+    }
+
+    .navbar-dark .navbar-brand:hover {
+      color: #27ae60;
+    }
+
+    .navbar-dark .nav-link {
+      color: #27ae60;
+      transition: color 0.3s;
+    }
+
+    .navbar-dark .nav-link.active,
+    .navbar-dark .nav-link:hover {
+      color: #2ecc71;
+    }
+
+    .btn-custom {
+      background-color: #27ae60;
+      color: #ffffff;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      border: none;
+    }
+
+    .btn-custom:hover {
+      background-color: #2ecc71;
+      color: #ffffff;
+      transition: transform 0.3s ease;
+    }
+
+    .card {
+      background-color: #121212;
+      border: none;
+      color: #ffffff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 25px rgba(46, 204, 113, 0.7);
+    }
+
+    .card-title {
+      color: #2ecc71;
+    }
+
+    footer {
+      background-color: #0d0d0d;
+      color: #cccccc;
+      padding: 20px 0;
+      border-top: 2px solid #27ae60;
+    }
+
+
+    section.py-5.text-center {
+      position: relative;
+      background: linear-gradient(135deg, #144d14 0%, #0a1b0a 100%);
+      overflow: hidden;
+      color: #a3d9a5;
+    }
+
+    section.py-5.text-center > .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    section.py-5.text-center h1.display-4 {
+      color: #2ecc71;
+      text-shadow: 1px 1px 4px #000000;
+    }
+
+    #stars-canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      display: block;
+    }
+
+     .dropdown-item-green:active {
+      background-color: #65c87a !important;
+      color: white !important;
+    }
+
+    .dropdown-item-green:focus {
+      background-color: #55ab68 !important;
+      color: white !important;
+    }
+
+</style>
+
+    
+<body>
+{% include 'includes/header.html' %}
+
+<main>
+  <section class="py-5 text-center">
+    <div class="container">
+      <b><h1 class="lead mb-4">Ваша корзина пока пуста!</h1></b>
+      <a href="{% url 'catalog' %}" class="btn btn-custom btn-lg">Перейти в каталог за покупками</a>
+    </div>
+  </section>
+</main>
+
+{% include 'includes/footer.html' %}
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
