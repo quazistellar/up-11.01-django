@@ -15,7 +15,8 @@ def main_page(request):
     return render(request, 'main_page.html')
 
 def catalog_page(request):
-    return render(request, 'catalog.html')
+    guitars = Guitar.objects.all() 
+    return render(request, 'catalog.html', {'guitars': guitars})
 
 def conatcts_page(request):
     return render(request, 'contacts.html')
@@ -27,7 +28,8 @@ def how_to_find(request):
     return render(request, 'how_to_find.html')
 
 def categories(request):
-    return render(request, 'categories.html')
+    categories = Category.objects.all()
+    return render(request, 'categories.html', {'categories': categories})
 
 def cabinet(request):
     return render(request, 'cab.html')

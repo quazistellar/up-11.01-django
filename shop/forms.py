@@ -33,6 +33,7 @@ class OrderStatusForm(forms.ModelForm):
     class Meta:
         model = OrderStatus
         fields = ['name']
+        widgets = {'name' : forms.TextInput(attrs={'class': 'form-control'})}
 
 class CartItemForm(forms.ModelForm):
     class Meta:
@@ -43,3 +44,4 @@ class OrderitemForm(forms.ModelForm):
     class Meta:
         model = OrderItem
         fields = ['quantity', 'price', 'guitar', 'order']
+      

@@ -1,205 +1,44 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guiznotes - Как нас найти</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="body-main-page">
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
+{% extends 'base.html' %}
+{% load static %}
 
-        body.body-main-page {
-            background-color: #1e1e1e;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+{% block title_name %}Guiznotes - Как нас найти{% endblock %}
 
-        main {
-            flex: 1 0 auto;
-        }
+{% block link_style %}
+    {{ block.super }}
+{% endblock %}
 
-        footer {
-            flex-shrink: 0;
-            background-color: #0d0d0d;
-            color: #cccccc;
-            padding: 20px 0;
-            border-top: 2px solid #27ae60;
-        }
-
-        .navbar-dark {
-            background-color: #0b110b !important;
-        }
-
-        .navbar-dark .navbar-brand {
-            color: #2ecc71;
-            transition: color 0.3s;
-        }
-
-        .navbar-dark .navbar-brand:hover {
-            color: #27ae60;
-        }
-
-        .navbar-dark .nav-link {
-            color: #27ae60;
-            transition: color 0.3s;
-        }
-
-        .navbar-dark .nav-link.active,
-        .navbar-dark .nav-link:hover {
-            color: #2ecc71;
-        }
-
-        .btn-custom {
-            background-color: #27ae60;
-            color: #ffffff;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-            border: none;
-        }
-
-        .btn-custom:hover {
-            background-color: #2ecc71;
-            color: #ffffff;
-        }
-
-        .card {
-            background-color: #121212;
-            border: none;
-            color: #ffffff;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            border-radius: 8px;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 25px rgba(46, 204, 113, 0.7);
-        }
-
-        .card-body {
-            padding: 3.5rem; 
-        }
-
-        .card-title {
-            color: #2ecc71;
-            font-size: 2.8rem;
-        }
-
-        a {
-            color: #27ae60;
-            text-decoration: none;
-        }
-
-        a:hover {
-            color: #2ecc71;
-        }
-
-        .contact-container {
-            padding: 70px 0;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        h2 {
-            color: #2ecc71;
-            margin-bottom: 2rem;
-        }
-
-        h4 {
-            color: #2ecc71;
-            margin-bottom: 1.2rem;
-            font-size: 1.8rem;
-        }
-
-        p {
-            color: #cccccc;
-            font-size: 1.3rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .contact-photo {
-            width: 100%;
-            height: 400px;
-            margin-top: 50px;
-            object-fit: cover;
-            border: 3px solid #27ae60;
-            border-radius: 8px;
-        }
-
-        @media (max-width: 767.98px) {
-            .contact-photo {
-                margin-top: 20px;
-            }
-
-            .card-body {
-                padding: 2rem;
-            }
-
-            .card-title {
-                font-size: 2.2rem;
-            }
-
-            h4 {
-                font-size: 1.5rem;
-            }
-
-            p {
-                font-size: 1.1rem;
-            }
-
-            .contact-container {
-                padding: 40px 15px;
-            }
-        }
-    </style>
-
-    {% include 'includes/header.html' %}
-    <main>
-        <div class="container contact-container">
-            <div class="row justify-content-center">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h2>Как нас найти?</h2>
-                                    <p>
-                                        Мы с радостью ответим на все ваши предложения, жалобы, сообщения, песни, рифы, аккорды, стихи и вопросы. 
-                                    </p>
-                                    <p>
-                                        Без проблем поможем Вам подобрать нужный инструмент, который точно понравится с первого взгляда!
-                                    </p>
-                                    <p>
-                                        Поиграть на гитаре вживую или найти нас можно здесь: г. Москва, ул. Неглинная 6/2,
-                                    </p>
-                                    <p>
-                                        и здесь: г. Москва, ул. Вятская 1,
-                                    </p>
-                                    <p>
-                                        и даже здесь: г. Москва, Краснохолмская наб. 3!
-                                    </p>
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="https://s2.stc.all.kpcdn.net/afisha/msk/wp-content/uploads/sites/5/2022/08/music-expert.jpg" class="contact-photo" alt="Фото офиса">
-                                </div>
+{% block content %}
+    <div class="container contact-container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h2>Как нас найти?</h2>
+                                <p>
+                                    Мы с радостью ответим на все ваши предложения, жалобы, сообщения, песни, рифы, аккорды, стихи и вопросы.
+                                </p>
+                                <p>
+                                    Без проблем поможем Вам подобрать нужный инструмент, который точно понравится с первого взгляда!
+                                </p>
+                                <p>
+                                    Поиграть на гитаре вживую или найти нас можно здесь: г. Москва, ул. Неглинная 6/2,
+                                </p>
+                                <p>
+                                    и здесь: г. Москва, ул. Вятская 1,
+                                </p>
+                                <p>
+                                    и даже здесь: г. Москва, Краснохолмская наб. 3!
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <img src="https://s2.stc.all.kpcdn.net/afisha/msk/wp-content/uploads/sites/5/2022/08/music-expert.jpg" class="contact-photo" alt="Фото офиса">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
-    {% include 'includes/footer.html' %}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+    </div>
+{% endblock %}

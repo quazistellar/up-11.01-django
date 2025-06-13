@@ -17,7 +17,6 @@ urlpatterns = [
 
    path('admindashboard/', adminpanel, name='adm'),
 
-
    path('guitar/', GuitarListView.as_view(), name='guitar_list_view'),
    path('guitar/<int:pk>/', GuitarDetailView.as_view(), name='guitar_detail_view'),
    path('guitar/create/', GuitarCreateView.as_view(), name='guitar_create_view'),

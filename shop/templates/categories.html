@@ -1,249 +1,37 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Guiznotes - Категории товаров</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body class="body-main-page">
-<style>
-  html, body {
-    height: 100%;
-    margin: 0;
-  }
+{% extends 'base.html' %}
+{% load static %}
 
-  body.body-main-page {
-    background-color: #1e1e1e;
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; 
-  }
+{% block title_name %}Guiznotes - Категории товаров{% endblock %}
 
-  main {
-    flex: 1 0 auto; 
-  }
+{% block link_style %}
+    {{ block.super }}
+{% endblock %}
 
-  footer {
-    flex-shrink: 0; 
-    background-color: #0d0d0d;
-    color: #cccccc;
-    padding: 20px 0;
-    border-top: 2px solid #27ae60;
-  }
-
-  .navbar-dark {
-    background-color: #0b110b !important;
-  }
-
-  .navbar-dark .navbar-brand {
-    color: #2ecc71;
-    transition: color 0.3s;
-  }
-
-  .navbar-dark .navbar-brand:hover {
-    color: #27ae60;
-  }
-
-  .navbar-dark .nav-link {
-    color: #27ae60;
-    transition: color 0.3s;
-  }
-
-  .navbar-dark .nav-link.active,
-  .navbar-dark .nav-link:hover {
-    color: #2ecc71;
-  }
-
-  .btn-custom {
-    background-color: #27ae60;
-    color: #ffffff;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-    border: none;
-  }
-
-  .btn-custom:hover {
-    background-color: #2ecc71;
-    color: #ffffff;
-    transition: transform 0.3s ease;
-  }
-
-  .card {
-    background-color: #121212;
-    border: none;
-    color: #ffffff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    z-index: 1;
-  }
-
-  .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 25px rgba(46, 204, 113, 0.7);
-  }
-
-  .card-title {
-    color: #2ecc71;
-  }
-
-  section.py-5.text-center {
-    position: relative;
-    background: linear-gradient(135deg, #144d14 0%, #0a1b0a 100%);
-    overflow: hidden;
-    color: #a3d9a5;
-  }
-
-  section.py-5.text-center > .container {
-    position: relative;
-    z-index: 1;
-  }
-
-  section.py-5.text-center h1.display-4 {
-    color: #2ecc71;
-    text-shadow: 1px 1px 4px #000000;
-  }
-
-  #stars-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-    display: block;
-  }
-
-  .dropdown-item-green:active {
-    background-color: #65c87a !important;
-    color: white !important;
-  }
-
-  .dropdown-item-green:focus {
-    background-color: #55ab68 !important;
-    color: white !important;
-  }
-
-  a {
-    color: #27ae60; 
-  }
-
-  a:hover {
-    color: #2ecc71; 
-  }
-</style>
-
-{% include 'includes/header.html' %}  
-
+{% block content %}
 <main>
-  <div class="container mt-5">
-    <h1 class="text-center mb-4">Категории товаров</h1>
-    <div class="row">
-      <div class="col-md-4 mb-4">
-        <div class="card">
-         <img src="{{ MEDIA_URL }}photos/electro.png" alt="Категория 1" class="card-img-top">
-          <div class="card-body">
-            <h5 class="card-title">Электрогитары</h5>
-            <p class="card-text">Громкие, быстрые, разные. Отлично подходят для концертов и любой музыки. Требуют дополнительного оборудования.</p>
-            <a href="{% url 'category_detail' id=1 %}" class="btn btn-custom">Перейти в категорию</a>
-          </div>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Категории товаров</h1>
+        <div class="row">
+            {% for category in categories %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        {% if category.photo %}
+                            <img src="{{ category.photo.url }}" alt="Категория {{ category.name }}" class="card-img-top" style="height: 400px; object-fit: cover;">
+                        {% else %}
+                            <img src="{% static 'photos/default.png' %}" alt="Категория {{ category.name }}" class="card-img-top" style="height: 400px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title-min">{{ category.name }}</h5>
+                            <p class="card-text small-text">{{ category.description|default:"Описание отсутствует" }}</p>
+                            <a href="{% url 'category_detail' category.pk %}" class="btn btn-custom mt-auto">Перейти в категорию</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>Категории отсутствуют!</p>
+            {% endfor %}
         </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="{{ MEDIA_URL }}photos/acoustic.png" class="card-img-top" alt="Категория 2">
-          <div class="card-body">
-            <h5 class="card-title">Акустические гитары</h5>
-            <p class="card-text">Для лучших посиделок с друзьями у костра или в уютной квартире. Акустика станет верным спутником во всех ваших путешествиях.</p>
-            <a href="{% url 'category_detail' id=2 %}" class="btn btn-custom">Перейти в категорию</a>
-          </div>
-        </div>
-      </div>
-        <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="{{ MEDIA_URL }}photos/bass.png" class="card-img-top" alt="Категория 3">
-          <div class="card-body">
-            <h5 class="card-title">Бас-гитары</h5>
-            <p class="card-text">Четырехструнная электрогитара с глубоким звучанием. Осторожно, возможно, вас не услышат!</p>
-            <a href="{% url 'category_detail' id=3 %}" class="btn btn-custom">Перейти в категорию</a>
-          </div>
-        </div>
-      </div>
-        <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="{{ MEDIA_URL }}photos/electroacous.png" class="card-img-top" alt="Категория 4">
-          <div class="card-body">
-            <h5 class="card-title">Электроакустическе гитары</h5>
-            <p class="card-text">Акустика, только громче и подключается к усилителю. Идеально для квартирников и ламповых концертов.</p>
-            <a href="{% url 'category_detail' id=4 %}" class="btn btn-custom">Перейти в категорию</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="{{ MEDIA_URL }}photos/class.png" class="card-img-top" alt="Категория 5">
-          <div class="card-body">
-            <h5 class="card-title">Классические гитары</h5>
-            <p class="card-text">Идеально для новичков, профессионалов, учащихся музыкальных школ и любителей строгой нотной грамоты.</p>
-            <a href="{% url 'category_detail' id=5 %}" class="btn btn-custom">Перейти в категорию</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="{{ MEDIA_URL }}photos/guitalele.png" class="card-img-top" alt="Категория 6">
-          <div class="card-body">
-            <h5 class="card-title">Гиталеле</h5>
-            <p class="card-text">Да, и такое тоже есть.</p>
-            <a href="{% url 'category_detail' id=6 %}" class="btn btn-custom">Перейти в категорию</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="{{ MEDIA_URL }}photos/ukulele.png" class="card-img-top" alt="Категория 7">
-          <div class="card-body">
-            <h5 class="card-title">Укулеле</h5>
-            <p class="card-text">Это вам не маленькая гитара! Инструмент с четырьмя струнами, который поместится в любой рюкзак и порадует своим мелодичным звучанием.</p>
-            <a href="{% url 'category_detail' id=7 %}" class="btn btn-custom">Перейти в категорию</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="{{ MEDIA_URL }}photos/power.jpg" class="card-img-top" alt="Категория 8">
-          <div class="card-body">
-            <h5 class="card-title">Усилители</h5>
-            <p class="card-text"> Оборудование для ваших гитар, чтобы они звучали как надо.</p>
-            <a href="{% url 'category_detail' id=8 %}" class="btn btn-custom">Перейти в категорию</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="{{ MEDIA_URL }}photos/other.png" class="card-img-top" alt="Категория 9">
-          <div class="card-body">
-            <h5 class="card-title">Аксессуары</h5>
-            <p class="card-text">Ремни, чехлы, медиаторы, струны. Всё, что душа пожелает.</p>
-            <a href="{% url 'category_detail' id=9 %}" class="btn btn-custom">Перейти в категорию</a>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </main>
+{% endblock %}
 
-{% include 'includes/footer.html' %} 
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>

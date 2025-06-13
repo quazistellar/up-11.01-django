@@ -1,47 +1,6 @@
 <header>
-  <style>
-    .navbar-dark {
-      background-color: #0b110b !important;
-    }
-
-    .navbar-dark .navbar-brand {
-      color: #2ecc71;
-      transition: color 0.3s;
-    }
-
-    .navbar-dark .navbar-brand:hover {
-      color: #27ae60;
-    }
-
-    .navbar-dark .nav-link {
-      color: #27ae60;
-      transition: color 0.3s;
-    }
-
-    .navbar-dark .nav-link.active,
-    .navbar-dark .nav-link:hover {
-      color: #2ecc71;
-    }
-
-    .dropdown-item:active {
-      background-color: #65c87a !important;
-      color: white !important;
-    }
-
-    .dropdown-item:focus {
-      background-color: #55ab68 !important;
-      color: white !important;
-    }
-
-     .dropdown-item {
-        color: black !important;
-        background-color: white !important;
-        border: none !important;
-        padding: 0.25rem 1rem;
-    }
-  </style>
   <nav class="navbar navbar-expand-lg navbar-dark px-4">
-    <a class="navbar-brand fs-3 fw-bold" href="#">GuizNotes</a>
+    <a class="navbar-brand fs-3 fw-bold" href="{% url 'main_page' %}">GuizNotes</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Переключить навигацию">
       <span class="navbar-toggler-icon"></span>
