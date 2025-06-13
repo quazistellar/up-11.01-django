@@ -1,11 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Страница категории</title>
-</head>
-<body>
-  <h1>Вы выбрали категорию: {{ category_name }}</h1>
-  <p>ID категории: {{ category_id }}</p>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
 
+{% block title_name %}Страница категории{% endblock %}
+
+{% block link_style %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+ <h1>Вы выбрали категорию: {{ category_name }}</h1>
+  <p>ID категории: {{ category_id }}</p>
+{% endblock %}
