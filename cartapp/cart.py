@@ -25,8 +25,6 @@ class Basket:
     def __len__(self):
         return sum(item['quantity'] for item in self.basket.values())
 
-
-
     def save(self):
         self.session[settings.CART_SESSION_ID] = self.basket
         self.session.modified = True
@@ -55,19 +53,10 @@ class Basket:
         del self.session[settings.CART_SESSION_ID]
         self.session.modified = True
 
-
     def decrement(self, product):
             product_id = str(product.id)
             if product_id in self.basket:
                 self.basket[product_id]['quantity'] -= 1
                 if self.basket[product_id]['quantity'] <= 0:
-                    del self.basket[product_id]
-                self.save()
-
-    def increment(self, product):
-            product_id = str(product.id)
-            if product_id in self.basket:
-                self.basket[product_id]['quantity'] += 1
-                if self.basket[product_id]['quantity'] >= 30:
                     del self.basket[product_id]
                 self.save()
