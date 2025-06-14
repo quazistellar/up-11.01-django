@@ -138,6 +138,15 @@ input, select, textarea {
     border-radius: 8px;
 }
 
+.card-guitar-photo {
+    width: 100%;
+    height: 550px;
+    margin-top: 50px;
+    object-fit: cover;
+    border: 3px solid #27ae60;
+    border-radius: 8px;
+}
+
 .form-control {
     background-color: #ffffff;
     border: 1px solid #27ae60;
@@ -268,15 +277,20 @@ input, select, textarea {
           display: block;
         }
 
-        .dropdown-item-green:active {
-          background-color: #65c87a !important;
-          color: white !important;
-        }
+ dropdown-item.active {
+  background-color: green !important; 
+  color: white !important; 
+}
 
-        .dropdown-item-green:focus {
-          background-color: #55ab68 !important;
-          color: white !important;
-        }
+.dropdown-item:active {  
+  background-color: green !important;
+  color: white !important;
+}
+
+.dropdown-item:focus { 
+    background-color: green !important;
+    color: white !important;
+}
 
 .small-text {
     font-size: 17px;
@@ -284,4 +298,177 @@ input, select, textarea {
 
 .list-font{
     font-size: 1.4rem; 
+}
+
+
+.auth-link {
+    font-size: 2.8rem; 
+}
+
+   .profile-main-container {
+            min-height: calc(100vh - 120px); 
+            padding: 70px 2%;
+            max-width: 1400px; 
+            margin: 0 auto;
+            box-sizing: border-box;
+            background: #1e1e1e; 
+            color: #cccccc; 
+        }
+
+        .profile-card-wrapper {
+            background: #121212; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            padding: 3.5rem; 
+            margin-bottom: 30px;
+            width: 100%; 
+        }
+
+        .profile-greeting {
+            text-align: center;
+            margin-bottom: 2rem; 
+        }
+
+        .profile-greeting h1 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: #2ecc71; 
+            margin-bottom: 1.2rem;
+        }
+
+        .profile-greeting p {
+            font-size: 1.3rem; 
+            color: #cccccc; 
+        }
+
+        .profile-divider {
+            border: 0;
+            border-top: 1px solid #444;
+            margin: 25px 0;
+        }
+
+        .profile-email {
+            text-align: center;
+            font-size: 1.3rem; 
+            color: #cccccc; 
+            margin-bottom: 2rem; 
+        }
+
+        .profile-email strong {
+            color: #2ecc71;
+        }
+
+        .profile-orders-title {
+            font-size: 2.8rem;
+            font-weight: 500;
+            color: #2ecc71; 
+            margin: 2rem 0; 
+            text-align: center; 
+        }
+
+        .profile-orders-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .profile-order-card {
+            flex: 1 1 calc(33.333% - 25px);
+            min-width: 300px;
+            background: #121212; 
+            border: none; 
+            border-radius: 8px;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-order-card:hover {
+            transform: translateY(-10px); 
+            box-shadow: 0 12px 25px rgba(46, 204, 113, 0.7); 
+        }
+
+        .profile-order-card h5 {
+            margin-top: 0;
+            font-size: 1.4rem; 
+            color: #2ecc71; 
+            font-weight: 500;
+        }
+
+        .profile-order-card p {
+            color: #cccccc;
+            margin: 8px 0;
+            font-size: 1.3rem; 
+        }
+
+        .profile-order-card p strong {
+            color: #2ecc71; 
+        }
+
+        .profile-order-card h6 {
+            color: #2ecc71;
+            font-size: 1.3rem; 
+            margin: 15px 0 10px;
+        }
+
+        .profile-order-items {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0 0;
+        }
+
+        .profile-order-items li {
+            margin-bottom: 8px;
+            color: #cccccc; 
+            font-size: 1.3rem; 
+        }
+
+        .profile-no-orders {
+            text-align: center;
+            color: #2ecc71; 
+            font-size: 1.3rem;
+            padding: 20px 0;
+        }
+
+        @media (max-width: 767.98px) {
+            .profile-main-container {
+                padding: 40px 15px; 
+            }
+
+            .profile-card-wrapper {
+                padding: 2rem;
+            }
+
+            .profile-greeting h1 {
+                font-size: 2.2rem; 
+            }
+
+            .profile-greeting p,
+            .profile-email,
+            .profile-order-card p,
+            .profile-order-items li,
+            .profile-no-orders {
+                font-size: 1.1rem; 
+            }
+
+            .profile-orders-title {
+                font-size: 2.2rem; 
+            }
+        }
+
+.dark-input {
+  background-color: #1e1e1e; 
+  color: #ffffff;       
+  border: 1px solid rgb(55, 56, 58); 
+}
+
+.dark-input:focus {
+  background-color: #1e1e1e; 
+  color: #ffffff;       
+  border-color: #00ff37;  
+  box-shadow: 0 0 0 0.2rem rgba(16, 17, 17, 0.25); 
 }

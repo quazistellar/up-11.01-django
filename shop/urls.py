@@ -3,15 +3,13 @@ from django.urls import path, include
 from .views import *
 
 urlpatterns = [
-   #path('first/', first_view, name='first_view'),
-   #path('second/', second_view, name='second_view'),
 
    path('', main_page, name='main_page'),
    path('catalog/', catalog_page, name='catalog'),
    path('contacts/', conatcts_page, name='contacts'),
    path('how_to_find/', how_to_find, name='how_to_find'),
    path('categories/', categories, name='categories'),
-   path('cartuser/', cart, name='cart'),
+   #path('cartuser/', cart, name='cart'),
    path('cabinet/', cabinet, name='cab'),
    path("categories/<int:id>/", category_detail, name='category_detail'),
 
@@ -64,6 +62,15 @@ urlpatterns = [
    path('orderitem/create/', OrderItemCreateView.as_view(), name='orderitem_create_view'),
    path('orderitem/<int:pk>/update/', OrderItemUpdateView.as_view(), name='orderitem_update_view'),
    path('orderitem/<int:pk>/delete/', OrderItemDeleteView.as_view(), name='orderitem_delete_view'),
+
+
+   path('choose_guitar/<int:pk>/', GuitarOnClickDetailView.as_view(), name='guitar_onclick_detail_view'),
+
+
+   path('login/', login_user, name='login_user'),
+   path('registration/', registration_user, name='registration_user'),
+   path('logout/', logout_user, name='logout_user'),
+
 
 
 ]  

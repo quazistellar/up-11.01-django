@@ -84,6 +84,11 @@ class Order(models.Model):
     address = models.TextField(verbose_name="Адрес доставки")
     comment = models.TextField(max_length=MAX_LENGTH, null=True, blank=True, verbose_name="Комментарий к заказу")
     total_price = models.FloatField(default=0.0, verbose_name='Общая сумма', validators=[MinValueValidator(0.0)])
+    
+    first_name = models.CharField(max_length=100, verbose_name='Имя покупателя')
+    last_name = models.CharField(max_length=100, verbose_name='Фамилия покупателя')
+    middle_name = models.CharField(max_length=100, null=True, blank=True, verbose_name='Отчество покупателя')
+    end_date = models.DateTimeField(null=True, blank=True, verbose_name='Дата окончания заказа')
 
     def __str__(self):
         return f"Заказ {self.id} от {self.user.username}"

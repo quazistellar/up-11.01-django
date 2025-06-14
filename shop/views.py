@@ -1,14 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import *
+from .models import Guitar, GuitarForm, Category, Cart, Order, OrderStatus, CartItem, OrderItem
 from django.urls import reverse_lazy
 
-
-#def first_view(request):
-    #return render(request, 'first.html')
-
-#def second_view(request):
-    #return render(request, 'second.html')
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.models import User
+from .forms import LoginForm, RegistrationForm
+from cartapp.forms import BasketAddProductForm
 
 
 def main_page(request):
@@ -32,16 +32,26 @@ def categories(request):
     return render(request, 'categories.html', {'categories': categories})
 
 def cabinet(request):
-    return render(request, 'cab.html')
+    user = request.user
+    orders = Order.objects.filter(user=user).exclude(status__name="Завершен").order_by('-create_date')  
+    context = {
+        'user': user,
+        'orders': orders,
+    }
+    return render(request, 'cab.html', context)
 
+
+@login_required
 def adminpanel(request):
     return render(request, 'admin_panel.html')
 
+
 def category_detail(request, id):
-    category_name = f"Категория номер {id}" 
+    category = get_object_or_404(Category, pk=id)
+    guitars = Guitar.objects.filter(category=category, is_exists=True)
     data = {
-        'category_name': category_name,
-        'category_id': id,
+        'category': category,
+        'guitars': guitars,
     }
     return render(request, 'category_detail.html', data)
 
@@ -172,13 +182,13 @@ class OrderDetailView(DetailView):
 class OrderCreateView(CreateView):
     model = Order
     template_name = 'order/order_form.html'
-    fields = ['user', 'status', 'address', 'comment', 'total_price']
+    fields = ['address', 'total_price', 'user', 'status', 'first_name', 'last_name', 'middle_name', 'end_date']
     success_url = reverse_lazy('order_list_view')
 
 class OrderUpdateView(UpdateView):
     model = Order
     template_name = 'order/order_form.html'
-    fields = ['user', 'status', 'address', 'comment', 'total_price']
+    fields = ['address', 'total_price', 'user', 'status', 'first_name', 'last_name', 'middle_name', 'end_date']
     success_url = reverse_lazy('order_list_view')
 
 class OrderDeleteView(DeleteView):
@@ -272,3 +282,49 @@ class OrderItemDeleteView(DeleteView):
     success_url = reverse_lazy('orderitem_list_view')
 
 
+# подробная информация 
+class GuitarOnClickDetailView(DetailView):
+    model = Guitar
+    template_name = 'guitar_detail_view.html'
+    context_object_name = 'guitar'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form_basket'] = BasketAddProductForm()
+        return context
+
+# для авторизации регистрации и выхода
+
+def login_user(request):
+    if request.method == 'POST':
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            login(request, form.get_user())
+            if request.GET.get('next'):
+                return redirect(request.GET.get('next'))
+            return redirect('catalog')
+    else:
+        form = LoginForm()
+        return render(request, 'auth/login.html', context={'form': form})
+
+
+def registration_user(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)  
+        if form.is_valid():
+            user = form.save() 
+            login(request, user) 
+            next_page = request.GET.get('next')
+            if next_page:
+                return redirect(next_page)
+            return redirect('catalog')
+        else:
+            return render(request, 'auth/registration.html', context={'form': form})
+    else:
+        form = RegistrationForm()
+        return render(request, 'auth/registration.html', context={'form': form})
+    
+
+def logout_user(request):
+    logout(request)
+    return redirect('catalog')

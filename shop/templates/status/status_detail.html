@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block content %}
+{% if user.is_authenticated and user.is_staff %}
      <div class="container contact-container">
             <div class="row justify-content-center">
                 <div class="col-12">
@@ -22,4 +23,10 @@
                 </div>
             </div>
         </div>
+{% else %}
+            <br>
+            <h1 class="text-center">Сначала войдите в аккаунт администратора</h1>
+   {% endif %}
+
 {% endblock %}
+
