@@ -1,6 +1,8 @@
 from django import forms
 from shop.models import Order
 
+
+
 class BasketAddProductForm(forms.Form):
     quantity = forms.IntegerField(min_value=1, max_value=30, initial=1, label='Количество',
                                  widget=forms.NumberInput(attrs={'class': 'form-control dark-input'}))

@@ -9,7 +9,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from .forms import LoginForm, RegistrationForm
 from cartapp.forms import BasketAddProductForm
-
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 def main_page(request):
     return render(request, 'main_page.html')
@@ -21,6 +22,7 @@ def catalog_page(request):
 def conatcts_page(request):
     return render(request, 'contacts.html')
 
+@login_required
 def cart(request):
     return render(request, 'cart.html')
 
@@ -31,6 +33,7 @@ def categories(request):
     categories = Category.objects.all()
     return render(request, 'categories.html', {'categories': categories})
 
+@login_required
 def cabinet(request):
     user = request.user
     orders = Order.objects.filter(user=user).exclude(status__name="Завершен").order_by('-create_date')  
@@ -57,226 +60,266 @@ def category_detail(request, id):
 
 
 #гитары
-class GuitarListView(ListView):
+class GuitarListView(PermissionRequiredMixin, ListView):
+    permission_required = 'shop.view_guitar'
     model = Guitar
     template_name = 'guitar/guitar_list.html'
     context_object_name = 'guitars'
 
-class GuitarDetailView(DetailView):
+class GuitarDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = 'shop.view_guitar'
     model = Guitar
     template_name = 'guitar/guitar_detail.html'
     context_object_name = 'guitar'
 
-class GuitarCreateView(CreateView):
+class GuitarCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'shop.add_guitar'
     model = Guitar
     template_name = 'guitar/guitar_form.html'
     fields = ['name', 'description', 'price', 'photo', 'in_shop_quantity', 'guitar_form', 'category', 'is_exists']
     success_url = reverse_lazy('guitar_list_view')
 
-class GuitarUpdateView(UpdateView):
+class GuitarUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'shop.change_guitar'
     model = Guitar
     template_name = 'guitar/guitar_form.html'
     fields = ['name', 'description', 'price', 'photo', 'in_shop_quantity', 'guitar_form', 'category', 'is_exists']
     success_url = reverse_lazy('guitar_list_view')
 
-class GuitarDeleteView(DeleteView):
+class GuitarDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'shop.delete_guitar'
     model = Guitar
     template_name = 'guitar/guitar_confirm_delete.html'
     success_url = reverse_lazy('guitar_list_view')
 
 #категории
-class CategoryListView(ListView):
+class CategoryListView(PermissionRequiredMixin, ListView):
+    permission_required = 'shop.view_category'
     model = Category
     template_name = 'category/category_list.html'
     context_object_name = 'categories'
 
-class CategoryDetailView(DetailView):
+class CategoryDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = 'shop.view_category'
     model = Category
     template_name = 'category/category_detail.html'
     context_object_name = 'category'
 
-class CategoryCreateView(CreateView):
+class CategoryCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'shop.add_category'
     model = Category
     template_name = 'category/category_form.html'
     fields = ['name', 'photo', 'description']
     success_url = reverse_lazy('category_list_view')
 
-class CategoryUpdateView(UpdateView):
+class CategoryUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'shop.change_category'
     model = Category
     template_name = 'category/category_form.html'
     fields = ['name', 'photo', 'description']
     success_url = reverse_lazy('category_list_view')
 
-class CategoryDeleteView(DeleteView):
+class CategoryDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'shop.delete_category'
     model = Category
     template_name = 'category/category_confirm_delete.html'
     success_url = reverse_lazy('category_list_view')
 
 #формы
-class GuitarFormListView(ListView):
+class GuitarFormListView(PermissionRequiredMixin, ListView):
+    permission_required = 'shop.view_guitarform'
     model = GuitarForm
     template_name = 'guitarform/guitarform_list.html'
     context_object_name = 'guitarforms'
 
-class GuitarFormDetailView(DetailView):
+class GuitarFormDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = 'shop.view_guitarform'
     model = GuitarForm
     template_name = 'guitarform/guitarform_detail.html'
     context_object_name = 'guitarform'
 
-class GuitarFormCreateView(CreateView):
+class GuitarFormCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'shop.add_guitarform'
     model = GuitarForm
     template_name = 'guitarform/guitarform_form.html'
     fields = ['name']
     success_url = reverse_lazy('guitarform_list_view')
 
-class GuitarFormUpdateView(UpdateView):
+class GuitarFormUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'shop.change_guitarform'
     model = GuitarForm
     template_name = 'guitarform/guitarform_form.html'
     fields = ['name']
     success_url = reverse_lazy('guitarform_list_view')
 
-class GuitarFormDeleteView(DeleteView):
+class GuitarFormDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'shop.delete_guitarform'
     model = GuitarForm
     template_name = 'guitarform/guitarform_confirm_delete.html'
     success_url = reverse_lazy('guitarform_list_view')
 
 #корзина
-class CartListView(ListView):
+class CartListView(PermissionRequiredMixin, ListView):
+    permission_required = 'shop.view_cart'
     model = Cart
     template_name = 'cart/cart_list.html'
     context_object_name = 'carts'
 
-class CartDetailView( DetailView):
+class CartDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = 'shop.view_cart'
     model = Cart
     template_name = 'cart/cart_detail.html'
     context_object_name = 'cart'
 
-class CartCreateView(CreateView):
+class CartCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'shop.add_cart'
     model = Cart
     template_name = 'cart/cart_form.html'
     fields = ['user']
     success_url = reverse_lazy('cart_list_view')
 
-class CartUpdateView(UpdateView):
+class CartUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'shop.change_cart'
     model = Cart
     template_name = 'cart/cart_form.html'
     fields = ['user']
     success_url = reverse_lazy('cart_list_view')
 
-class CartDeleteView(DeleteView):
+class CartDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'shop.delete_cart'
     model = Cart
     template_name = 'cart/cart_confirm_delete.html'
     success_url = reverse_lazy('cart_list_view')
 
 #заказ
-class OrderListView(ListView):
+class OrderListView(PermissionRequiredMixin, ListView):
+    permission_required = 'shop.view_order'
     model = Order
     template_name = 'order/order_list.html'
     context_object_name = 'orders'
 
-class OrderDetailView(DetailView):
+class OrderDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = 'shop.view_order'
     model = Order
     template_name = 'order/order_detail.html'
     context_object_name = 'order'
 
-class OrderCreateView(CreateView):
+class OrderCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'shop.add_order'
     model = Order
     template_name = 'order/order_form.html'
     fields = ['address', 'total_price', 'user', 'status', 'first_name', 'last_name', 'middle_name', 'end_date']
     success_url = reverse_lazy('order_list_view')
 
-class OrderUpdateView(UpdateView):
+class OrderUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'shop.change_order'
     model = Order
     template_name = 'order/order_form.html'
     fields = ['address', 'total_price', 'user', 'status', 'first_name', 'last_name', 'middle_name', 'end_date']
     success_url = reverse_lazy('order_list_view')
 
-class OrderDeleteView(DeleteView):
+class OrderDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'shop.delete_order'
     model = Order
     template_name = 'order/order_confirm_delete.html'
     success_url = reverse_lazy('order_list_view')
 
 #статус
-class StatusListView(ListView):
+class StatusListView(PermissionRequiredMixin, ListView):
+    permission_required = 'shop.view_orderstatus'
     model = OrderStatus
     template_name = 'status/status_list.html'
     context_object_name = 'statuses'
 
-class StatusDetailView(DetailView):
+class StatusDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = 'shop.view_orderstatus'
     model = OrderStatus
     template_name = 'status/status_detail.html'
     context_object_name = 'status'
 
-class StatusCreateView(CreateView):
+class StatusCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'shop.add_orderstatus'
     model = OrderStatus
     template_name = 'status/status_form.html'
     fields = ['name']
     success_url = reverse_lazy('status_list_view')
 
-class StatusUpdateView(UpdateView):
+class StatusUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'shop.change_orderstatus'
     model = OrderStatus
     template_name = 'status/status_form.html'
     fields = ['name']
     success_url = reverse_lazy('status_list_view')
 
-class StatusDeleteView(DeleteView):
+class StatusDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'shop.delete_orderstatus'
     model = OrderStatus
     template_name = 'status/status_confirm_delete.html'
     success_url = reverse_lazy('status_list_view')
 
 #позиция в корзине
-class CartItemListView(ListView):
+class CartItemListView(PermissionRequiredMixin, ListView):
+    permission_required = 'shop.view_cartitem'
     model = CartItem
     template_name = 'cartitem/cartitem_list.html'
     context_object_name = 'cartitems'
 
 class CartItemDetailView(DetailView):
+    permission_required = 'shop.view_cartitem'
     model = CartItem
     template_name = 'cartitem/cartitem_detail.html'
     context_object_name = 'cartitem'
 
-class CartItemCreateView(CreateView):
+class CartItemCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'shop.add_cartitem'
     model = CartItem
     template_name = 'cartitem/cartitem_form.html'
     fields = ['quantity', 'cart', 'guitar']
     success_url = reverse_lazy('cartitem_list_view')
 
-class CartItemUpdateView(UpdateView):
+class CartItemUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'shop.change_cartitem'
     model = CartItem
     template_name = 'cartitem/cartitem_form.html'
     fields = ['quantity', 'cart', 'guitar']
     success_url = reverse_lazy('cartitem_list_view')
 
-class CartItemDeleteView(DeleteView):
+class CartItemDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'shop.delete_cartitem'
     model = CartItem
     template_name = 'cartitem/cartitem_confirm_delete.html'
     success_url = reverse_lazy('cartitem_list_view')
 
 
 #позиция в заказе
-class OrderItemListView(ListView):
+class OrderItemListView(PermissionRequiredMixin, ListView):
+    permission_required = 'shop.view_orderitem'
     model = OrderItem
     template_name = 'orderitem/orderitem_list.html'
     context_object_name = 'orderitems'
 
-class OrderItemDetailView(DetailView):
+class OrderItemDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = 'shop.view_orderitem'
     model = OrderItem
     template_name = 'orderitem/orderitem_detail.html'
     context_object_name = 'orderitem'
 
-class OrderItemCreateView(CreateView):
+class OrderItemCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'shop.add_orderitem'
     model = OrderItem
     template_name = 'orderitem/orderitem_form.html'
     fields = ['quantity', 'price', 'guitar', 'order']
     success_url = reverse_lazy('orderitem_list_view')
 
-class OrderItemUpdateView(UpdateView):
+class OrderItemUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'shop.change_orderitem'
     model = OrderItem
     template_name = 'orderitem/orderitem_form.html'
     fields = ['quantity', 'price', 'guitar', 'order']
     success_url = reverse_lazy('orderitem_list_view')
 
-class OrderItemDeleteView(DeleteView):
+class OrderItemDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'shop.delete_orderitem'
     model = OrderItem
     template_name = 'orderitem/orderitem_confirm_delete.html'
     success_url = reverse_lazy('orderitem_list_view')

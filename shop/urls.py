@@ -66,7 +66,6 @@ urlpatterns = [
 
    path('choose_guitar/<int:pk>/', GuitarOnClickDetailView.as_view(), name='guitar_onclick_detail_view'),
 
-
    path('login/', login_user, name='login_user'),
    path('registration/', registration_user, name='registration_user'),
    path('logout/', logout_user, name='logout_user'),

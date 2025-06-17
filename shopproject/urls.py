@@ -27,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('shop.urls')),
     path('basket/', include('cartapp.urls')),
+    path('api/', include('apishka.urls')),
 ]
 
 if DEBUG:

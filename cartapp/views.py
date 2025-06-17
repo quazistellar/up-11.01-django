@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from shop.models import Guitar, Order, OrderItem, OrderStatus
 from cartapp.cart import Basket
 from .forms import OrderForm, BasketAddProductForm
+from django.contrib.auth.decorators import permission_required
 
 @login_required
 def basket_detail(request):
