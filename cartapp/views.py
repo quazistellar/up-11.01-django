@@ -6,10 +6,17 @@ from cartapp.cart import Basket
 from .forms import OrderForm, BasketAddProductForm
 from django.contrib.auth.decorators import permission_required
 
+<<<<<<< HEAD
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings 
 
+=======
+#для почты
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.conf import settings 
+>>>>>>> 64a049ff938d5afabc0fa81fcec35bb68daf1918
 
 @login_required
 def basket_detail(request):

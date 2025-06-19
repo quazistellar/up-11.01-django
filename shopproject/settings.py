@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shop',
-    'cartapp'
+    'cartapp',
+    'rest_framework',
+    'apishka'
 ]
 
 MIDDLEWARE = [
@@ -148,6 +150,10 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT' : "%Y-%m-%d %H:%M:%S.%f%z",
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 64a049ff938d5afabc0fa81fcec35bb68daf1918
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 587
