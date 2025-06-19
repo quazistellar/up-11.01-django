@@ -9,7 +9,7 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="text-center mb-4" color: #2ecc71;>Товары в категории {{ category.name }}</h1>
+    <h1 class="text-center mb-4" style="color: #2ecc71;">Товары в категории {{ category.name }}</h1>
     <div class="row">
         {% if guitars %}
             {% for guitar in guitars %}
@@ -31,7 +31,7 @@
             {% endfor %}
         {% else %}
             <div class="col-12">
-                <p class="text-center">В этой категории пока ничего нет.</p>
+                <p class="text-center" style="color: #2ecc71;">В этой категории пока ничего нет.</p>
             </div>
         {% endif %}
     </div>

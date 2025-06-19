@@ -6,6 +6,11 @@ from cartapp.cart import Basket
 from .forms import OrderForm, BasketAddProductForm
 from django.contrib.auth.decorators import permission_required
 
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.conf import settings 
+
+
 @login_required
 def basket_detail(request):
     basket = Basket(request)
@@ -50,6 +55,7 @@ def basket_increment(request, product_id):
     basket.add(product=product, count=1)
     return redirect('basket_detail')
 
+
 @login_required
 def open_order(request):
     basket = Basket(request)
@@ -64,7 +70,7 @@ def open_order(request):
         quantity = item['quantity']
         item_price = guitar.price * quantity
         total_price += item_price
-        items_list.append({'name': guitar.name, 'quantity': quantity, 'price': guitar.price, 'item_price': item_price})
+        items_list.append({'name': guitar.name, 'quantity': quantity, 'price': guitar.price})
 
     if request.method == 'POST':
         form = OrderForm(request.POST)
@@ -84,23 +90,27 @@ def open_order(request):
                     quantity_error = True
                     break
             if quantity_error:
-                return render(request, 'order/error_quantity.html', error_context, status=400)  
+                return render(request, 'order/error_quantity.html', error_context, status=400)
+
+            address = form.cleaned_data['address']  
+
             order = Order(
                 user=request.user,
                 status=initial_status,
-                address=form.cleaned_data['address'],
+                address=address,
                 comment=form.cleaned_data['comment'],
                 total_price=total_price,
                 first_name=form.cleaned_data['first_name'],
                 last_name=form.cleaned_data['last_name'],
                 middle_name=form.cleaned_data['middle_name'],
             )
-            order.save()  
+            order.save()
 
-            for item in basket:
-                guitar = item['guitar']
-                quantity = item['quantity']
-                try:
+            try:
+                for item in basket:
+                    guitar = item['guitar']
+                    quantity = item['quantity']
+
                     OrderItem.objects.create(
                         order=order,
                         guitar=guitar,
@@ -109,11 +119,34 @@ def open_order(request):
                     )
                     guitar.in_shop_quantity -= quantity
                     guitar.save()
-                except Exception as e: 
-                    order.delete()
-                    return render(request, 'order/error_quantity.html', {'error_message': 'Произошла ошибка при создании заказа!'}, status=500)
-            basket.clear()  
-            return redirect('basket_detail')  
+            except Exception as e:
+                order.delete()
+                return render(request, 'order/error_quantity.html', {'error_message': 'Произошла ошибка при создании заказа!'}, status=500)
+
+            basket.clear()
+
+            try:
+                context = {
+                    'username': request.user.username,
+                    'total_price': total_price,
+                    'items_list': items_list,
+                    'address': address 
+                }
+
+                message = render_to_string('order/order_mail.html', context)
+
+                send_mail(
+                    'GuizNotes - заказ успешно оформлен!',
+                    '',
+                    settings.EMAIL_HOST_USER,
+                    [request.user.email],
+                    html_message=message,
+                    fail_silently=False,
+                )
+            except Exception as e:
+                print(f"Error sending email: {e}")
+
+            return redirect('basket_detail')
         else:
             return render(
                 request,
@@ -128,4 +161,3 @@ def open_order(request):
         'order/order_buy_form.html',
         {'form': form, 'basket': items_list, 'total_price': total_price}
     )
-
