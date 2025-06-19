@@ -89,6 +89,19 @@ DATABASES = {
     }
 }
 
+# для сервера
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'HOST': '',
+#         'PORT': '3306',
+#         'NAME': '$up1101',
+#         'USER': '',
+#         'PASSWORD': ''
+#     }
+# }
+
+
 
 
 # Password validation
@@ -150,11 +163,11 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT' : "%Y-%m-%d %H:%M:%S.%f%z",
 }
 
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.mail.ru'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-DEFAULT_FROM_EMAIL = ''
+# локально - для почты
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.mail.ru'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST_PASSWORD = ''
+# DEFAULT_FROM_EMAIL = ''
