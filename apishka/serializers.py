@@ -1,10 +1,7 @@
 from rest_framework import serializers
 from shop.models import *
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 64a049ff938d5afabc0fa81fcec35bb68daf1918
 class CategorySerializers(serializers.ModelSerializer):
     class Meta:
         model = Category
