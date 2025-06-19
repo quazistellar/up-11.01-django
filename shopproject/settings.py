@@ -80,12 +80,12 @@ WSGI_APPLICATION = 'shopproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST': '',
-        'PORT': '3306',
-        'NAME': '$upshka11',
-        'USER': '',
-        'PASSWORD': ''
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+        'NAME': 'upshka11',
+        'USER': 'postgres',
+        'PASSWORD': '1'
     }
 }
 
@@ -149,3 +149,12 @@ LOGIN_URL = '/login/'
 REST_FRAMEWORK = {
     'DATETIME_FORMAT' : "%Y-%m-%d %H:%M:%S.%f%z",
 }
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'guiznotes@mail.ru'
+EMAIL_HOST_PASSWORD = 'mNwoJvzJ3AfxBYgrCiay'
+DEFAULT_FROM_EMAIL = 'GuizNotes <guiznotes@mail.ru>'
